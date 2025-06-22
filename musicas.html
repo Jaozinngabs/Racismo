@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Músicas | Cultura que Resiste</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos adicionais para centralização */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .music-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .music-section {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .music-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .music-cover {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .music-info {
+            width: 100%;
+        }
+        
+        .music-info h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .music-info p {
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .music-desc {
+            font-style: italic;
+            margin: 1rem 0;
+            color: rgba(239, 235, 233, 0.8);
+        }
+        /* Esconder o fallback mobile inicialmente */
+        .spotify-mobile-fallback {
+            display: none;
+        }
+
+        /* Mostrar apenas o player em desktop */
+        .spotify-embed {
+            display: block;
+            width: 100%;
+            height: 80px;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: none;
+        }
+
+        /* Media query para mobile */
+        @media (max-width: 768px) {
+            .spotify-embed {
+                display: none;
+            }
+            
+            .spotify-mobile-fallback {
+                display: block;
+                margin-top: 1rem;
+            }
+            
+            .spotify-mobile-link {
+                display: inline-flex;
+                align-items: center;
+                background-color: #1DB954;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 20px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            
+            .spotify-mobile-link img {
+                width: 20px;
+                margin-right: 10px;
+            }
+        }
+        
+        .section-title {
+            text-align: center;
+            color: var(--accent);
+            margin: 2rem 0;
+            font-size: 1.8rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 0.5rem auto;
+        }
+        
+        .content-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .music-cover {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .music-info h3 {
+                font-size: 1.3rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="content-header">
+        <h1>Músicas da Resistência</h1>
+        <p>Ouça e aprenda com a cultura negra brasileira</p>
+        <div class="progress-tracker">2/3</div>
+    </header>
+    
+    <main class="music-container">
+        <section class="music-section">
+            <h2 class="section-title">Artistas Negros Brasileiros</h2>
+            
+            <div class="music-card">
+                <img src="racionaiscover.jpg" alt="Capa Racionais MC's" class="music-cover">
+                <div class="music-info">
+                    <h3>Diário de um Detento</h3>
+                    <p>Racionais MC's</p>
+                    <p class="music-desc">Retrato cru do sistema carcerário brasileiro e da vida nas periferias</p>
+                    <div class="music-player">
+                        <!-- Player para desktop -->
+                        <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/7wglwZzZoWUr8sOECwpu6L" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        
+                        <!-- Fallback para mobile -->
+                        <div class="spotify-mobile-fallback">
+                            <a href="https://open.spotify.com/track/7wglwZzZoWUr8sOECwpu6L" class="spotify-mobile-link" target="_blank">
+                                <img src="spotify-icon.png" alt="Spotify">
+                                Ouvir no aplicativo Spotify
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="music-card">
+                <img src="elzacover.jpg" alt="Capa Elza Soares" class="music-cover">
+                <div class="music-info">
+                    <h3>A Carne</h3>
+                    <p>Elza Soares</p>
+                    <p class="music-desc">Canção potente que denuncia o racismo e a violência contra corpos negros</p>
+                    <div class="music-player">
+                        <!-- Player para desktop -->
+                        <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/5cjgme1utiQLGaPaRDjATo" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        
+                        <!-- Fallback para mobile -->
+                        <div class="spotify-mobile-fallback">
+                            <a href="https://open.spotify.com/track/5cjgme1utiQLGaPaRDjATo" class="spotify-mobile-link" target="_blank">
+                                <img src="spotify-icon.png" alt="Spotify">
+                                Ouvir no aplicativo Spotify
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="music-section">
+            <h2 class="section-title">Religiões Afro-brasileiras</h2>
+            
+            <div class="music-card">
+                <img src="badencover.jpg" alt="Capa Baden Powell" class="music-cover">
+                <div class="music-info">
+                    <h3>Canto de Ossanha</h3>
+                    <p>Baden Powell e Vinicius de Moraes</p>
+                    <p class="music-desc">Homenagem ao orixá das folhas e da medicina na cultura afro-brasileira</p>
+                    <div class="music-player">
+                        <!-- Player para desktop -->
+                        <iframe class="spotify-embed" src="https://open.spotify.com/embed/track/3nBGaKwZtlOpOJg5oUv1YQ" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                        
+                        <!-- Fallback para mobile -->
+                        <div class="spotify-mobile-fallback">
+                            <a href="https://open.spotify.com/track/3nBGaKwZtlOpOJg5oUv1YQ" class="spotify-mobile-link" target="_blank">
+                                <img src="spotify-icon.png" alt="Spotify">
+                                Ouvir no aplicativo Spotify
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <nav class="content-navigation">
+            <a href="conteudo.html" class="nav-button">Voltar</a>
+            <a href="quiz.html" class="nav-button primary">Ir para o Quiz</a>
+        </nav>
+    </main>
+</body>
+</html>

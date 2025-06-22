@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Cultura que Resiste</title>
+    <style>
+        :root {
+            --gold: #ffffff;
+            --dark-brown: #5D4037;
+            --light-brown: #8D6E63;
+            --cream: #FFF8E1;
+            --black: #212121;
+            --red: #D32F2F;
+            --green: #388E3C;
+            --blue: #1976D2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, var(--dark-brown), var(--dark-brown));
+            color: var(--cream);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--gold);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--light-brown));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        
+        .question-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--gold);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--black);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: inline;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .option {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .option.correct {
+            background-color: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+        
+        .option.incorrect {
+            background-color: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+        
+        .option.selected {
+            background-color: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+        
+        .option-prefix {
+            background-color: var(--gold);
+            color: var(--black);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .feedback.correct {
+            background-color: rgba(56, 142, 60, 0.2);
+            border-left: 4px solid var(--green);
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: rgba(211, 47, 47, 0.2);
+            border-left: 4px solid var(--red);
+            display: block;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, var(--gold), var(--light-brown));
+            color: var(--black);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 25px auto 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result-container {
+            text-align: center;
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+        
+        .result-container h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .score-text {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .restart-btn {
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .afro-pattern {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .pattern-1 {
+            top: 20px;
+            left: 20px;
+            width: 100px;
+        }
+        
+        .pattern-2 {
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            transform: rotate(180deg);
+        }
+        .quiz-navigation {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .quiz-home-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--secondary);
+            color: var(--light);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 1px solid var(--highlight);
+        }
+
+        .quiz-home-button:hover {
+            background-color: var(--highlight);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+        /* Garantir consistência com sua paleta */
+        .quiz-action-button, .home-button, .quiz-home-button {
+            background-color: #8D6E63; /* marrom médio */
+            color: #EFEBE9; /* bege claro */
+            border: 1px solid #A1887F; /* marrom highlight */
+        }
+
+        .quiz-action-button:hover, .home-button:hover, .quiz-home-button:hover {
+            background-color: #A1887F; /* marrom highlight */
+            color: #3E2723; /* marrom muito escuro */
+        }
+        
+        .timer {
+            background-color: rgba(0, 0, 0, 0.3);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            border: 3px solid var(--gold);
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .timer {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>Cultura que Resiste</h1>
+            <div class="subtitle">Teste seus conhecimentos sobre cultura negra brasileira</div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div class="timer" id="timer">30</div>
+        
+        <div id="question-container" class="question-container">
+            <div class="question-number" id="question-number">1</div>
+            <div class="question-text" id="question-text">Carregando pergunta...</div>
+            
+            <div class="options-container" id="options-container">
+                <!-- Opções serão inseridas aqui via JavaScript -->
+            </div>
+            
+            <div class="feedback" id="feedback"></div>
+            
+            <button class="next-btn" id="next-btn" disabled>Próxima</button>
+        </div>
+        
+        <div id="result-container" class="result-container">
+            <h2>Quiz Concluído!</h2>
+            <div class="score-text">Você acertou <span id="score">0</span> de <span id="total-questions">0</span> perguntas</div>
+            <button class="restart-btn" id="restart-btn">Jogar Novamente</button>
+        </div>
+        <div class="quiz-navigation">
+            <a href="index.html" class="quiz-home-button">Voltar ao Início</a>
+        </div>
+        </div>
+        
+        
+        <svg class="afro-pattern pattern-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,20 Q30,10 40,20 T60,20 T80,20" stroke="var(--gold)" fill="none" stroke-width="2"/>
+            <path d="M20,40 Q30,30 40,40 T60,40 T80,40" stroke="var(--gold)" fill="none" stroke-width="2"/>
+            <path d="M20,60 Q30,50 40,60 T60,60 T80,60" stroke="var(--gold)" fill="none" stroke-width="2"/>
+            <path d="M20,80 Q30,70 40,80 T60,80 T80,80" stroke="var(--gold)" fill="none" stroke-width="2"/>
+        </svg>
+        
+        <svg class="afro-pattern pattern-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,20 Q30,10 40,20 T60,20 T80,20" stroke="var(--gold)" fill="none" stroke-width="2"/>
+            <path d="M20,40 Q30,30 40,40 T60,40 T80,40" stroke="var(--gold)" fill="none" stroke-width="2"/>
+            <path d="M20,60 Q30,50 40,60 T60,60 T80,60" stroke="var(--gold)" fill="none" stroke-width="2"/>
+            <path d="M20,80 Q30,70 40,80 T60,80 T80,80" stroke="var(--gold)" fill="none" stroke-width="2"/>
+        </svg>
+    </div>
+
+    <script>
+        // Dados do quiz
+        const quizData = [
+            {
+                question: "Quem fundou os Racionais MC's?",
+                options: ["Emicida", "Mano Brown", "Criolo", "MV Bill"],
+                correct: 1,
+                feedback: "Correto! Mano Brown foi um dos fundadores dos Racionais MC's, grupo formado em 1988."
+            },
+            {
+                question: "Qual orixá está associado ao mar?",
+                options: ["Oxóssi", "Ogum", "Iemanjá", "Xangô"],
+                correct: 2,
+                feedback: "Exato! Iemanjá é a orixá das águas salgadas, mãe de quase todos os orixás."
+            },
+            {
+                question: "Em 'Cidade de Deus', qual o principal tema tratado?",
+                options: ["O amor romântico", "A violência urbana e exclusão", "A imigração japonesa", "O futebol brasileiro"],
+                correct: 1,
+                feedback: "Isso mesmo! O filme retrata a violência e exclusão social nas favelas do Rio de Janeiro."
+            },
+            {
+                question: "Qual prática brasileira mistura dança e luta?",
+                options: ["Frevo", "Capoeira", "Maracatu", "Jongo"],
+                correct: 1,
+                feedback: "Correto! A capoeira foi desenvolvida por africanos escravizados no Brasil como forma de resistência."
+            },
+            {
+                question: "Quem escreveu 'Pequeno Manual Antirracista'?",
+                options: ["Conceição Evaristo", "Djamila Ribeiro", "Lélia Gonzalez", "Sueli Carneiro"],
+                correct: 1,
+                feedback: "Exato! Djamila Ribeiro é uma importante filósofa e ativista antirracista brasileira."
+            }
+        ];
+
+        // Elementos do DOM
+        const questionContainer = document.getElementById('question-container');
+        const resultContainer = document.getElementById('result-container');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const questionNumber = document.getElementById('question-number');
+        const feedback = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreElement = document.getElementById('score');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const restartBtn = document.getElementById('restart-btn');
+        const timerElement = document.getElementById('timer');
+
+        // Variáveis do quiz
+        let currentQuestion = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 30;
+        let quizCompleted = false;
+
+        // Inicializar quiz
+        function initQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            quizCompleted = false;
+            questionContainer.style.display = 'block';
+            resultContainer.style.display = 'none';
+            loadQuestion();
+        }
+
+        // Carregar pergunta
+        function loadQuestion() {
+            resetState();
+            startTimer();
+            
+            const question = quizData[currentQuestion];
+            questionNumber.textContent = currentQuestion + 1;
+            questionText.textContent = question.question;
+            
+            // Atualizar barra de progresso
+            progressBar.style.width = `${((currentQuestion) / quizData.length) * 100}%`;
+            
+            // Adicionar opções
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.innerHTML = `
+                    <span class="option-prefix">${String.fromCharCode(65 + index)}</span>
+                    <span class="option-text">${option}</span>
+                `;
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        // Resetar estado para nova pergunta
+        function resetState() {
+            clearInterval(timer);
+            timeLeft = 30;
+            timerElement.textContent = timeLeft;
+            
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+            
+            feedback.className = 'feedback';
+            feedback.style.display = 'none';
+            nextBtn.disabled = true;
+        }
+
+        // Selecionar opção
+        function selectOption(index) {
+            clearInterval(timer);
+            const options = document.querySelectorAll('.option');
+            const correctIndex = quizData[currentQuestion].correct;
+            
+            options.forEach(option => option.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            // Mostrar feedback
+            if (index === correctIndex) {
+                feedback.textContent = quizData[currentQuestion].feedback;
+                feedback.classList.add('correct');
+                score++;
+            } else {
+                feedback.textContent = `Incorreto. A resposta correta é: ${quizData[currentQuestion].options[correctIndex]}`;
+                feedback.classList.add('incorrect');
+                options[correctIndex].classList.add('correct');
+            }
+            
+            options[index].classList.add(index === correctIndex ? 'correct' : 'incorrect');
+            feedback.style.display = 'block';
+            nextBtn.disabled = false;
+        }
+
+        // Próxima pergunta
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // Mostrar resultado
+        function showResult() {
+            quizCompleted = true;
+            questionContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            progressBar.style.width = '100%';
+            
+            scoreElement.textContent = score;
+            totalQuestionsElement.textContent = quizData.length;
+        }
+
+        // Temporizador
+        function startTimer() {
+            timerElement.textContent = timeLeft;
+            timer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    if (!quizCompleted) {
+                        const options = document.querySelectorAll('.option');
+                        options.forEach(option => option.style.pointerEvents = 'none');
+                        nextBtn.disabled = false;
+                    }
+                }
+            }, 1000);
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', initQuiz);
+
+        // Iniciar quiz quando a página carregar
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>

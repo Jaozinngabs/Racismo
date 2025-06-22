@@ -1,0 +1,355 @@
+:root {
+    --primary: #31160e;    /* Marrom escuro principal */
+    --secondary: #8D6E63;  /* Marrom médio */
+    --accent: #D7CCC8;     /* Marrom claro/bege para destaques */
+    --light: #EFEBE9;      /* Bege muito claro para texto */
+    --dark: #3E2723;       /* Marrom muito escuro para fundos */
+    --text: #ffffff;       /* Texto claro */
+    --background: #3E2723; /* Fundo escuro */
+    --card-bg: #5D4037;    /* Fundo dos cards */
+    --highlight: #A1887F;  /* Marrom para destaques */
+    --link: #BCAAA4;       /* Cor para links */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Estilos da tela inicial */
+.welcome-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: var(--primary);
+    color: var(--light);
+    text-align: center;
+}
+
+.main-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.main-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.welcome-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.welcome-card {
+    background-color: var(--card-bg);
+    color: var(--text);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 280px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.welcome-card:hover {
+    transform: translateY(-10px);
+}
+
+.icon-container {
+    background-color: var(--accent);
+    width: 80px;
+    height: 80px;
+    border-radius: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.welcome-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.welcome-card h2 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Corrigir cores de botões e elementos interativos */
+.start-button, .nav-button.primary, #next-button, #restart-button {
+    background-color: var(--accent);
+    color: var(--dark);
+}
+
+.start-button:hover, .nav-button.primary:hover, #next-button:hover, #restart-button:hover {
+    background-color: var(--highlight);
+}
+
+/* Ajustar cards e seções */
+.bio-card, .music-card, .quiz-container {
+    background-color: var(--card-bg);
+    color: var(--light);
+}
+
+/* Ajustar cabeçalhos */
+.content-header, .quiz-header {
+    background-color: var(--dark);
+    color: var(--accent);
+}
+
+/* Ajustar barra de progresso */
+.progress-bar {
+    background-color: var(--accent);
+}
+
+/* Ajustar tags e elementos secundários */
+.bio-tag {
+    background-color: var(--secondary);
+    color: var(--light);
+}
+
+/* Ajustar feedback no quiz */
+.quiz-option.correct {
+    background-color: #4CAF50; /* Verde para respostas corretas */
+}
+
+.quiz-option.incorrect {
+    background-color: #F44336; /* Vermelho para respostas incorretas */
+}
+
+/* Estilos das páginas de conteúdo */
+.content-header, .quiz-header {
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.content-header h1, .quiz-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-tracker {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--accent);
+    color: var(--primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.content-container, .music-container, .quiz-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Estilos das biografias */
+.bio-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.bio-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.bio-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1.5rem;
+    border: 3px solid var(--accent);
+}
+
+.bio-title h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.bio-subtitle {
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.bio-content {
+    padding: 1.5rem;
+}
+
+.highlight-box {
+    background-color: rgba(241, 196, 15, 0.1);
+    border-left: 4px solid var(--accent);
+    padding: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+.bio-footer {
+    padding: 1rem 1.5rem;
+    background-color: #f5f5f5;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bio-tag {
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* Estilos da página de músicas */
+.music-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+}
+
+.music-card {
+    display: flex;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.music-cover {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.music-info {
+    padding: 1rem;
+    flex: 1;
+}
+
+.music-info h3 {
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.music-desc {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    opacity: 0.8;
+}
+
+.music-button {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.music-button:hover {
+    background-color: var(--highlight);
+}
+
+/* Navegação */
+.content-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+
+.nav-button {
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.nav-button {
+    background-color: #f5f5f5;
+    color: var(--primary);
+    border: 1px solid #ddd;
+}
+
+.nav-button.primary {
+    background-color: var(--accent);
+    color: var(--primary);
+    border: none;
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Rodapé */
+.main-footer {
+    background-color: var(--dark);
+    color: var(--light);
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .welcome-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bio-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .bio-image {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .music-card {
+        flex-direction: column;
+    }
+    
+    .music-cover {
+        width: 100%;
+        height: auto;
+    }
+}
